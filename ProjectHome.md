@@ -1,0 +1,1 @@
+Collection of black-box optimization tasks and infrastructure to benchmark optimization algorithms, inspired by the [COCO / BBOB](http://coco.gforge.inria.fr) framework.
