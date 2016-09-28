@@ -39,13 +39,12 @@ import os, sys
 import time
 import numpy as np  # "pip install numpy" installs numpy
 import cocoex
-from scipy import optimize # for tests with fmin_cobyla
+try: from scipy import optimize # for tests with fmin_cobyla, fmin_slsqp
+except: print("could not import scipy.optimize, consider 'pip install scipy'")
 from cocoex import Suite, Observer, log_level
 verbose = 1
 
 try: import cma  # cma.fmin is a solver option, "pip install cma" installs cma
-except: pass
-try: from scipy.optimize import fmin_slsqp  # "pip install scipy" installs scipy
 except: pass
 try: range = xrange  # let range always be an iterator
 except NameError: pass
@@ -285,7 +284,7 @@ current_batch = 1      # 1..number_of_batches
 ##############################################################################
 SOLVER = random_search
 #SOLVER = optimize.fmin_cobyla
-#SOLVER = my_solver # fmin_slsqp # SOLVER = cma.fmin
+#SOLVER = my_solver # optimize.fmin_slsqp # SOLVER = cma.fmin
 #suite_name = "bbob-constrained"
 #suite_name = "bbob-biobj"
 suite_name = "bbob"
