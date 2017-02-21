@@ -369,8 +369,10 @@ def main(argv=None):
             print("Generating LaTeX tables...")
             dictNoise = dsList.dictByNoise()
             for noise, sliceNoise in dictNoise.iteritems():
-                pptable.main(sliceNoise, inset.tabDimsOfInterest,
-                             algoutputdir, noise)
+                pptable.main(sliceNoise, testbedsettings.current_testbed.tabDimsOfInterest,
+                           algoutputdir, noise)
+                # pptable.main(sliceNoise, inset.tabDimsOfInterest,
+                #             outputdir, noise)
             print_done()
 
         if genericsettings.isRLDistr:
@@ -382,7 +384,8 @@ def main(argv=None):
                               'results will be mixed in the "all functions" '
                               'ECDF figures.')
             dictDim = dsList.dictByDim()
-            for dim in inset.rldDimsOfInterest:
+            for dim in testbedsettings.current_testbed.rldDimsOfInterest:
+                #inset.rldDimsOfInterest:
                 try:
                     sliceDim = dictDim[dim]
                 except KeyError:
@@ -434,7 +437,8 @@ def main(argv=None):
                     except (SyntaxError, NameError, ValueError):
                         print("Float value required.")
                 dictDim = sliceNoise.dictByDim()
-                for d in inset.rldDimsOfInterest:
+                for d in testbedsettings.current_testbed.rldDimsOfInterest:
+                    #inset.rldDimsOfInterest:
                     try:
                         sliceDim = dictDim[d]
                     except KeyError:
@@ -462,6 +466,7 @@ def main(argv=None):
         prepend_to_file(latex_commands_file,
                         ['\\providecommand{\\bbobloglossfigurecaption}[1]{',
                          pplogloss.figure_caption(), '}'])
+
         prepend_to_file(latex_commands_file,
                         ['\\providecommand{\\bbobpprldistrlegend}[1]{',
                          pprldistr.caption_single(),  # depends on the config setting, should depend on maxfevals
@@ -471,6 +476,7 @@ def main(argv=None):
                         ['\\providecommand{\\bbobppfigdimlegend}[1]{',
                          ppfigdim.scaling_figure_caption(),
                          '}'])
+
         prepend_to_file(latex_commands_file,
                         ['\\providecommand{\\bbobpptablecaption}[1]{',
                          pptable.get_table_caption(),
